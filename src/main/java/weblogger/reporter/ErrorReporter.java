@@ -11,7 +11,7 @@ public final class ErrorReporter {
 
     private static final String FQCN = ErrorReporter.class.getName();
 
-    private String messageFormatter = "%p %d %P %t %F %C %M %L %m %S";
+    private String messageFormatter = "%p %d %P %t %m %S";
     private MessageService messageService;
 
     public void reportMessage(String message, String errorLevel, Throwable th) {

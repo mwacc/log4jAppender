@@ -7,7 +7,7 @@ import webloger.MessageFormatter;
 
 public class WebPatternLayout extends org.apache.log4j.Layout{
 
-    protected String conversionPattern = "%p %d %P %t %F %C %M %L %m %S";
+    protected String conversionPattern = "%p %d %P %t %m %S";
 
 
     @Override
@@ -18,10 +18,6 @@ public class WebPatternLayout extends org.apache.log4j.Layout{
     @Override
     public boolean ignoresThrowable() {
         return false;
-    }
-
-    protected PatternParser createPatternParser(String pattern) {
-        return new WebPatternParser(pattern);
     }
 
     public void setConversionPattern(java.lang.String conversionPattern) {
