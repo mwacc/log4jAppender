@@ -16,6 +16,15 @@ public class IntegrationTest {
         } catch(Exception e) {
             logger.error("Exception must be logged", e);
         }
+
+        addLayer();
     }
 
+    private static void addLayer() {
+        try {
+            throw new Exception("BUMED LAYER");
+        } catch(Exception e) {
+            logger.error("Exception must be logged", e);
+        }
+    }
 }

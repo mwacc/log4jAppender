@@ -46,7 +46,10 @@ public class WebPatternLayout extends org.apache.log4j.Layout{
     }
 
     public Message formatToMessage(LoggingEvent event) {
+        Throwable th = event.getThrowableInformation() != null && event.getThrowableInformation().getThrowable() != null ?
+                event.getThrowableInformation().getThrowable() : null;
+
         return MessageFormatter.getMessage(getConversionPattern(), event.getLevel().toString(), event.getMessage().toString(),
-                event.getThrowableInformation().getThrowable(), event.getLocationInformation());
+                th, event.getLocationInformation());
     }
 }
