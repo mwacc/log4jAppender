@@ -2,6 +2,7 @@ package log4j.web.sample;
 
 import com.google.gson.Gson;
 import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
 
 import javax.xml.ws.http.HTTPException;
@@ -21,6 +22,8 @@ public class WebAppender extends AppenderSkeleton {
     private String token;
     private String projectId;
 
+    private WebPatternLayout layout = new WebPatternLayout();
+
     public WebAppender() {
         this.host = "localhost";
         this.port = 8081;
@@ -29,7 +32,10 @@ public class WebAppender extends AppenderSkeleton {
     @Override
     protected void append(LoggingEvent loggingEvent) {
         try {
-            String msg = getLogStatement(loggingEvent);
+            if( loggingEvent.getLevel().toInt() < Level.WARN_INT ) return;
+
+
+            Message msg = getLogStatement(loggingEvent);
             URL url = new URL("http", host, port, "/msg-log");
 
             // AWS ELB sometimes returns 503 Status code when load is increasing.
@@ -38,7 +44,7 @@ public class WebAppender extends AppenderSkeleton {
             boolean stopLoop = false;
             while (!stopLoop) {
                 try {
-                    stopLoop = sendRequest(url, msg);
+                    stopLoop = sendRequest(url, msg.toString());
                 } catch (HTTPException e) {
                     if (e.getStatusCode() != 503 || retries >= maxRetries) {
                         throw e;
@@ -93,8 +99,8 @@ public class WebAppender extends AppenderSkeleton {
         return true;
     }
 
-    protected String getLogStatement(LoggingEvent event){
-        return getLayout().format(event);
+    protected Message getLogStatement(LoggingEvent event){
+        return layout.formatToMessage(event);
     }
 
     @Override
