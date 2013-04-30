@@ -13,7 +13,7 @@ import java.util.Date;
 public class WebPatternLayout extends org.apache.log4j.Layout{
 
     protected String conversionPattern = "%p %d %P %t %F %C %L %m %S";
-    private static DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:SSS");
+    private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
 
     public WebPatternLayout() {
         setConversionPattern(conversionPattern);
