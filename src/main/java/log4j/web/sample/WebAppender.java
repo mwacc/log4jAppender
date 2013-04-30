@@ -14,7 +14,7 @@ public class WebAppender extends AppenderSkeleton {
     private String projectId;
 
     private WebPatternLayout layout = new WebPatternLayout();
-    private AtomicReference<MessageService> service;
+    private AtomicReference<MessageService> service = new AtomicReference<MessageService>();
 
     private void init() {
         service.set(new MessageService(getToken(), getProjectId()));
