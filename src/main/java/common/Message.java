@@ -1,4 +1,4 @@
-package log4j.web.sample;
+package common;
 
 public class Message {
 
@@ -30,7 +30,7 @@ public class Message {
         if( getPriority() != null ) builder.append( String.format("\"priority\":\"%s\",", getPriority()) );
         if( getDate() != null ) builder.append( String.format("\"date\":\"%s\",", getDate()) );
 
-        return String.format("{%s}", builder.toString().substring(0, builder.length()-1) );
+        return String.format("{%s}", builder.toString().substring(0, builder.length() - 1));
     }
 
     public String getMessage() {
