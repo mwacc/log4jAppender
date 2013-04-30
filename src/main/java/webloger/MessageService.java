@@ -69,7 +69,6 @@ public class MessageService {
             conn.connect();
 
             if (body != null) {
-                System.out.println(body);
                 OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
                 out.write( body );
                 out.close();
