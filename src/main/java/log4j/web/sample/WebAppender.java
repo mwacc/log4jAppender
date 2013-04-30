@@ -81,7 +81,7 @@ public class WebAppender extends AppenderSkeleton {
             if (body != null) {
                 System.out.println(body);
                 OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-                out.write(String.format("{\"message\":\"%s\"}", body));
+                out.write( body );
                 out.close();
             }
 

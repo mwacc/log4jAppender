@@ -17,10 +17,20 @@ public class Message {
 
     @Override
     public String toString() {
-        return String.format("{ \"message\":\"%s\", \"stackTrace\":\"%s\", \"hostName\":\"%s\", \"threadName\":\"%s\", " +
-                "\"className\":\"%s\", \"\"methodName\":\"%s\", \"lineNumber\":\"%s\", \"fileName\":\"%s\"," +
-                "\"priority\":\"%s\", \"date\":\"%s\" }", getMessage(), getStackTrace(), getHostName(), getThreadName(),
-                getClassName(), getMethodName(), getLineNumber(), getFileName(), getPriority(), getDate());
+        StringBuilder builder = new StringBuilder();
+
+        if( getMessage() != null ) builder.append( String.format("\"message\":\"%s\",", getMessage()) );
+        if( getStackTrace() != null ) builder.append( String.format("\"stackTrace\":\"%s\",", getStackTrace()) );
+        if( getHostName() != null ) builder.append( String.format("\"hostName\":\"%s\",", getHostName()) );
+        if( getThreadName() != null ) builder.append( String.format("\"threadName\":\"%s\",", getThreadName()) );
+        if( getClassName() != null ) builder.append( String.format("\"className\":\"%s\",", getClassName()) );
+        if( getMethodName() != null ) builder.append( String.format("\"methodName\":\"%s\",", getMethodName()) );
+        if( getLineNumber() != null ) builder.append( String.format("\"lineNumber\":\"%s\",", getLineNumber()) );
+        if( getFileName() != null ) builder.append( String.format("\"fileName\":\"%s\",", getFileName()) );
+        if( getPriority() != null ) builder.append( String.format("\"priority\":\"%s\",", getPriority()) );
+        if( getDate() != null ) builder.append( String.format("\"date\":\"%s\",", getDate()) );
+
+        return String.format("{%s}", builder.toString().substring(0, builder.length()-1) );
     }
 
     public String getMessage() {

@@ -6,11 +6,14 @@ import org.apache.log4j.spi.LoggingEvent;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class WebPatternLayout extends org.apache.log4j.Layout{
 
     protected String conversionPattern = "%p %d %P %t %F %C %L %m %S";
+    private static DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:SSS");
 
     public WebPatternLayout() {
         setConversionPattern(conversionPattern);
@@ -62,7 +65,7 @@ public class WebPatternLayout extends org.apache.log4j.Layout{
             msg.setPriority( event.getLevel().toString() );
         }
         if( conversionPattern.contains("%d") ){
-            msg.setDate(new Date(event.getTimeStamp()).toString());
+            msg.setDate( df.format(new Date(event.getTimeStamp())) );
         }
         if( conversionPattern.contains("%P") ){
             String hostName = "unknown";
@@ -89,8 +92,14 @@ public class WebPatternLayout extends org.apache.log4j.Layout{
         if( conversionPattern.contains("%m") ){
             msg.setMessage(event.getMessage().toString());
         }
-        if( conversionPattern.contains("%S") && event.getThrowableInformation() != null){
-            msg.setStackTrace( event.getThrowableInformation().getThrowable().toString() );
+        if( conversionPattern.contains("%S") && event.getThrowableInformation() != null &&
+                event.getThrowableInformation().getThrowable().getStackTrace() != null){
+            StringBuilder sb = new StringBuilder();
+            for (StackTraceElement element : event.getThrowableInformation().getThrowable().getStackTrace()) {
+                sb.append(element.toString());
+                sb.append("\n");
+            }
+            msg.setStackTrace( sb.toString() );
         }
 
         return msg;
