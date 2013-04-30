@@ -1,28 +1,31 @@
 package weblogger.reporter;
 
-
 import common.LoggedMessageFormat;
 import common.Message;
 import org.apache.log4j.Level;
-import org.apache.log4j.spi.LocationInfo;
-import webloger.MessageFormatter;
 import webloger.MessageService;
 
-public final class ErrorReporter {
+public class ErrorReporterService {
 
-    private static final String FQCN = ErrorReporter.class.getName();
+    private final ErrorReporter reporter;
 
-    private String messageFormatter = LoggedMessageFormat.messageFormat;
-    private MessageService messageService;
+    public ErrorReporterService(String token, String projectId, String messageFormat) {
+        MessageService service = new MessageService(token, projectId);
+        reporter = new ErrorReporter();
+        reporter.setMessageService(service);
+        reporter.setMessageFormatter(messageFormat);
+    }
+
+    public ErrorReporterService(String token, String projectId) {
+        this(token, projectId, LoggedMessageFormat.messageFormat);
+    }
 
     public void reportMessage(Message message) {
-        messageService.send(message);
+        reporter.reportMessage(message);
     }
 
     public void reportMessage(String message, String errorLevel, Throwable th) {
-        Message msg = MessageFormatter.getMessage(getMessageFormatter(), errorLevel, message, th, new LocationInfo(th, FQCN));
-        messageService.send(msg);
-        msg = null;
+        reporter.reportMessage(message, errorLevel, th);
     }
 
     public void reportFatal(String errorMessage, Throwable th) {
@@ -49,20 +52,4 @@ public final class ErrorReporter {
         reportMessage(errorMessage, Level.WARN.toString(), null);
     }
 
-
-    public String getMessageFormatter() {
-        return messageFormatter;
-    }
-
-    public void setMessageFormatter(String messageFormatter) {
-        this.messageFormatter = messageFormatter;
-    }
-
-    public MessageService getMessageService() {
-        return messageService;
-    }
-
-    public void setMessageService(MessageService messageService) {
-        this.messageService = messageService;
-    }
 }

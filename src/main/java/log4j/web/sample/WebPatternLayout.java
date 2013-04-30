@@ -1,5 +1,6 @@
 package log4j.web.sample;
 
+import common.LoggedMessageFormat;
 import common.Message;
 import org.apache.log4j.helpers.PatternParser;
 import org.apache.log4j.spi.LoggingEvent;
@@ -7,7 +8,7 @@ import webloger.MessageFormatter;
 
 public class WebPatternLayout extends org.apache.log4j.Layout{
 
-    protected String conversionPattern = "%p %d %P %t %m %S";
+    protected String conversionPattern = LoggedMessageFormat.messageFormat;
 
 
     @Override

@@ -18,6 +18,7 @@ public class IntegrationTest {
         }
 
         addLayer();
+
     }
 
     private static void addLayer() {
