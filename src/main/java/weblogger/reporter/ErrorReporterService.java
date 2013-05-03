@@ -3,7 +3,7 @@ package weblogger.reporter;
 import common.LoggedMessageFormat;
 import common.Message;
 import org.apache.log4j.Level;
-import webloger.MessageService;
+import webloger.service.MessageService;
 
 public class ErrorReporterService {
 

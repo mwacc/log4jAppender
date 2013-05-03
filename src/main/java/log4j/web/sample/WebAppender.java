@@ -4,7 +4,7 @@ import common.Message;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
-import webloger.MessageService;
+import webloger.service.MessageService;
 
 import java.util.concurrent.atomic.AtomicReference;
 

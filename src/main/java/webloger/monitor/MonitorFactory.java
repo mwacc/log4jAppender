@@ -20,6 +20,7 @@ public class MonitorFactory implements MonitorFactoryMBean {
      * @return new monitoring instance
      */
     public Monitor start(String label) {
+        if(label == null) throw new IllegalArgumentException("label can't be NULL");
         return new Monitor(label, System.currentTimeMillis(), enableMonitor, handler);
     }
 

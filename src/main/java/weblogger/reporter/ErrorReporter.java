@@ -6,7 +6,7 @@ import common.Message;
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LocationInfo;
 import webloger.MessageFormatter;
-import webloger.MessageService;
+import webloger.service.MessageService;
 
 public final class ErrorReporter {
 

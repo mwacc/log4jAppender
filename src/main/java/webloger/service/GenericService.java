@@ -1,4 +1,4 @@
-package webloger;
+package webloger.service;
 
 import common.Message;
 
@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class MessageService {
+public abstract class GenericService {
     private final static int maxRetries = 3;
 
     private final String token;
@@ -16,16 +16,16 @@ public class MessageService {
     private final String host;
     private final int port;
 
-    public MessageService(String token, String projectId) {
+    public GenericService(String token, String projectId) {
         this.token = token;
         this.projectId = projectId;
         this.host = "localhost";
         this.port = 8081;
     }
 
-    public void send(Message msg) {
+    public void send(String msg) {
         try {
-            URL url = new URL("http", host, port, "/msg-log");
+            URL url = new URL("http", host, port, getEndpoint());
 
             // AWS ELB sometimes returns 503 Status code when load is increasing.
             // We retry several times to send error
@@ -33,7 +33,7 @@ public class MessageService {
             boolean stopLoop = false;
             while (!stopLoop) {
                 try {
-                    stopLoop = sendRequest(url, msg.toString());
+                    stopLoop = sendRequest(url, msg);
                 } catch (HTTPException e) {
                     if (e.getStatusCode() != 503 || retries >= maxRetries) {
                         throw e;
@@ -87,4 +87,6 @@ public class MessageService {
 
         return true;
     }
+
+    public abstract String getEndpoint();
 }
