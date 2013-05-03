@@ -22,7 +22,7 @@ public class MonitoringWebIntegrationTest {
             System.out.print("Sleep for "+sleepFor);
             Thread.sleep(sleepFor);
         }catch(Exception e){
-
+            e.printStackTrace();
         }finally {
             m.stop();
         }
