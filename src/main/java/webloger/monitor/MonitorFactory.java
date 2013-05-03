@@ -15,7 +15,7 @@ public class MonitorFactory implements MonitorFactoryMBean {
 
     public MonitorFactory(String projectId, String token) {
         this();
-        this.handler = new WebMonitorClosingHandler();
+        this.handler = new WebMonitorClosingHandler(projectId, token);
     }
 
     /**
