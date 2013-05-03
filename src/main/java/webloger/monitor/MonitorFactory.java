@@ -3,7 +3,7 @@ package webloger.monitor;
 import webloger.monitor.hadnlers.MonitorClosingHandler;
 import webloger.monitor.hadnlers.WebMonitorClosingHandler;
 
-public class MonitorFactory {
+public class MonitorFactory implements MonitorFactoryMBean {
 
     private boolean enableMonitor;
     private MonitorClosingHandler handler;
