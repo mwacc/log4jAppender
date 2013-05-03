@@ -1,4 +1,4 @@
-package webloger.monitor;
+package webloger.monitor.mbeans;
 
 public interface MonitorFactoryMBean {
 

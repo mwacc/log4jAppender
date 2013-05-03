@@ -2,6 +2,7 @@ package webloger.monitor;
 
 import webloger.monitor.hadnlers.MonitorClosingHandler;
 import webloger.monitor.hadnlers.WebMonitorClosingHandler;
+import webloger.monitor.mbeans.MonitorFactoryMBean;
 
 public class MonitorFactory implements MonitorFactoryMBean {
 
