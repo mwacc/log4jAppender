@@ -4,6 +4,13 @@ public class MonitoringMessage {
     private String label;
     private long usedTime;
 
+    public MonitoringMessage() {}
+
+    public MonitoringMessage(String label, long usedTime){
+        this.label = label;
+        this.usedTime = usedTime;
+    }
+
     public String getLabel() {
         return label;
     }
